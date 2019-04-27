@@ -35,8 +35,9 @@ for l, s, w in zip(gmm.means_.flatten(), gmm.covariances_.flatten(), gmm.weights
 y_axis_bgmm = np.zeros_like(x_axis)
 bgmm = BayesianGaussianMixture(7)
 bgmm.fit(samples.reshape(-1,1))
-for l, s, w in zip(bgmm.means_.flatten(), bgmm.covariances_.flatten(), bgmm.weights_):
-    y_axis_bgmm += ss.norm.pdf(x_axis, loc=l, scale=s) * w
+y_axis_bgmm = np.exp(bgmm.score_samples(x_axis.reshape(-1,1)))
+# for l, s, w in zip(bgmm.means_.flatten(), bgmm.covariances_.flatten(), bgmm.weights_):
+#     y_axis_bgmm += ss.norm.pdf(x_axis, loc=l, scale=s) * w
 
 plt.plot(x_axis, y_axis, label='Densidad real')
 plt.hist(samples, normed=True, bins="fd", label='Muestras')
