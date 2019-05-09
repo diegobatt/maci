@@ -5,7 +5,7 @@ import numpy as np
 import scipy.stats as stats
 
 plt.style.use('seaborn')
-matplotlib.rc('font', size=15)
+matplotlib.rc('font', size=18)
 
 fig = plt.figure(figsize=(12,5), frameon=False)
 
@@ -16,7 +16,7 @@ ax.set_xlim([0, 10])
 
 vlw = 5
 left_bar_c='#656565'
-active_bar_c='#20893b'
+active_bar_c='#0aca24'
 
 """ PLOT"""
 alturas = np.linspace(9, 1, 6)#[9,7,5,3,1]
