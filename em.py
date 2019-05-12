@@ -16,7 +16,7 @@ delta_height = height_tall - height
 
 text_L = r"$\mathcal{L}(q)$"
 text_KL = r"KL$(q||p)$"
-text_ln = r"ln $p(\mathcal{D})$"
+text_ln = r"ln $p(\mathbf{X})$"
 text_L_old = r"$\mathcal{L}(q, \mathbf{\theta}^{old})$"
 text_KL_0 = r"KL$(q||p)=0$"
 text_ln_old = r"ln $p(\mathbf{X} | \mathbf{\theta}^{old})$"
