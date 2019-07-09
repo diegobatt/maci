@@ -26,7 +26,7 @@ y_axis = np.zeros_like(x_axis)
 for l, s, w in zip(mu, sigma, weights):
     y_axis += ss.norm.pdf(x_axis, loc=l, scale=s) * w
 
-K = 15
+K = 11
 
 y_axis_gmm = np.zeros_like(x_axis)
 gmm = GaussianMixture(K)
@@ -38,19 +38,27 @@ y_axis_bgmm = np.zeros_like(x_axis)
 bgmm = BayesianGaussianMixture(K)
 bgmm.fit(samples.reshape(-1,1))
 y_axis_bgmm = np.exp(bgmm.score_samples(x_axis.reshape(-1,1)))
-# for l, s, w in zip(bgmm.means_.flatten(), bgmm.covariances_.flatten(), bgmm.weights_):
-#     y_axis_bgmm += ss.norm.pdf(x_axis, loc=l, scale=s) * w
 
-plt.plot(x_axis, y_axis, label='Densidad real')
-plt.hist(samples, normed=True, bins="fd", alpha=1, label='Muestras')
+
+# plt.plot(x_axis, y_axis, label='Densidad real')
+# plt.hist(samples, normed=True, bins="fd", alpha=1, label='Muestras')
 # plt.plot(samples,np.zeros(len(samples)), marker='.', label='Muestras')
 # plt.plot(x_axis, y_axis_gmm, label='Estimacion ML')
-plt.plot(x_axis, y_axis_bgmm, label='Estimacion bayesiana')
+# plt.plot(x_axis, y_axis_bgmm, label='Estimacion bayesiana')
 # plt.xlabel("x")
 # plt.ylabel("f(x)")
 # plt.xlim([-2, 10])
-plt.ylim([0, 0.32])
-plt.legend()
-plt.savefig('figures/bayes_soluciones')
+# plt.ylim([0, 0.32])
+# plt.legend()
+# plt.savefig('figures/bayes_soluciones')
 # plt.savefig('figures/ml_problemas')
+# plt.show()
+
+plt.figure()
+plt.stem(np.arange(1, K+1)+0.1, np.sort(gmm.weights_)[::-1], label='Estimacion ML')
+plt.stem(np.arange(1, K+1)-0.1, np.sort(bgmm.weights_)[::-1], label='Estimacion bayesiana', linefmt='g', markerfmt='go')
+plt.xlabel("K")
+plt.ylabel("Peso de la componente")
+plt.legend()
+plt.savefig('figures/weights_comparison.png')
 plt.show()
